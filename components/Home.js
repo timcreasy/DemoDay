@@ -17,8 +17,7 @@ const Home = React.createClass({
   getInitialState() {
     return({
       demos: [],
-      tempDemoArray: [],
-      refreshing: false
+      tempDemoArray: []
     });
   },
 
@@ -28,11 +27,10 @@ const Home = React.createClass({
       this.setState({tempDemoArray: JSON.parse(demos)});
     });
     BeaconBridge.startScanningForBeacons();
-    this.setState({refreshing: true});
     setTimeout(() => {
       BeaconBridge.stopScanningForBeacons()
-      this.setState({refreshing: false});
       this.setState({demos: this.state.tempDemoArray});
+      this.scanForDemos();
     }, 4000);
   },
 
@@ -41,16 +39,14 @@ const Home = React.createClass({
   },
 
   scanForDemos() {
-    if (!this.state.refreshing) {
-      this.setState({refreshing: true});
       BeaconBridge.stopScanningForBeacons();
       BeaconBridge.startScanningForBeacons();
       setTimeout(() => {
-        this.setState({refreshing: false});
         BeaconBridge.stopScanningForBeacons()
         this.setState({demos: this.state.tempDemoArray});
+        this.scanForDemos();
       }, 4000);
-    }
+    // }
   },
 
   render() {
@@ -58,13 +54,7 @@ const Home = React.createClass({
       <View style={styles.container} >
         <ParallaxView
           backgroundSource={require('../imgs/main.jpg')}
-          windowHeight={140} 
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.scanForDemos}
-            />
-          } >
+          windowHeight={140} >
           <View style={styles.scrollContainer}>
             <Text style={styles.mainHeader}>Demos Near Me</Text>
             {
