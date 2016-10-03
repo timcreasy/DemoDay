@@ -1,13 +1,5 @@
-//
-//  BeaconBridge.h
-//  DemoDay
-//
-//  Created by Tim Creasy on 10/3/16.
-//  Copyright © 2016 Facebook. All rights reserved.
-//
+#import "RCTBridgeModule.h"
+#import <PhySdk/PhySdk.h>
 
-#import <Foundation/Foundation.h>
-
-@interface BeaconBridge : NSObject
-
+@interface BeaconBridge : NSObject <RCTBridgeModule>
 @end
