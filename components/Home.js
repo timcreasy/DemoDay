@@ -12,9 +12,9 @@ const Home = React.createClass({
         <View style={styles.container} >
           <ParallaxView
             backgroundSource={require('../imgs/main.jpg')}
-            windowHeight={200} >
+            windowHeight={140} >
             <View style={styles.scrollContainer}>
-              <Text>Hello World!</Text>
+              <Text style={styles.mainHeader}>Demos Near Me</Text>
             </View>
           </ParallaxView>
         </View>
@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
   scrollContainer: {
     paddingHorizontal: 10,
     paddingVertical: 20
+  },
+  mainHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#253137',
+    paddingBottom: 15
   }
 })
 
