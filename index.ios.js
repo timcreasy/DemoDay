@@ -4,14 +4,17 @@ import {
   StyleSheet,
   View
 } from 'react-native';
+import {Scene, Router} from 'react-native-router-flux';
 import Home from './components/Home';
 
 const DemoDay = React.createClass({
   render() {
     return (
-      <View style={styles.container}>
-        <Home />
-      </View>
+      <Router>
+        <Scene key="root">
+          <Scene key="home" component={Home} title="Cohort 14" initial={true} />
+        </Scene>
+      </Router>
     );
   }
 });
@@ -19,7 +22,6 @@ const DemoDay = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
   }
 });
 
