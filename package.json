@@ -6,10 +6,16 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "native-base": "^0.5.9",
     "react": "15.3.2",
     "react-native": "0.34.1",
+    "react-native-icon-checkbox": "^1.2.0",
     "react-native-parallax-view": "^2.0.6",
-    "react-native-router-flux": "^3.35.0"
+    "react-native-router-flux": "^3.35.0",
+    "react-native-socketio": "^0.3.0",
+    "react-native-vector-icons": "^2.1.0",
+    "socket.io": "^1.4.8",
+    "socket.io-client": "^1.4.8"
   }
 }

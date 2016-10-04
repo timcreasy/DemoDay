@@ -25,6 +25,14 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		B2045A0E1DA2DA700037E44E /* PhySdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2045A0D1DA2DA700037E44E /* PhySdk.framework */; };
 		B2045A111DA2DA990037E44E /* BeaconBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B2045A101DA2DA990037E44E /* BeaconBridge.m */; };
+		B2045A561DA343C80037E44E /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2045A4E1DA343C80037E44E /* Entypo.ttf */; };
+		B2045A571DA343C80037E44E /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2045A4F1DA343C80037E44E /* EvilIcons.ttf */; };
+		B2045A581DA343C80037E44E /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2045A501DA343C80037E44E /* FontAwesome.ttf */; };
+		B2045A591DA343C80037E44E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2045A511DA343C80037E44E /* Foundation.ttf */; };
+		B2045A5A1DA343C80037E44E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2045A521DA343C80037E44E /* Ionicons.ttf */; };
+		B2045A5B1DA343C80037E44E /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2045A531DA343C80037E44E /* MaterialIcons.ttf */; };
+		B2045A5C1DA343C80037E44E /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2045A541DA343C80037E44E /* Octicons.ttf */; };
+		B2045A5D1DA343C80037E44E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2045A551DA343C80037E44E /* Zocial.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +140,14 @@
 		B2045A0D1DA2DA700037E44E /* PhySdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PhySdk.framework; sourceTree = "<group>"; };
 		B2045A0F1DA2DA990037E44E /* BeaconBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconBridge.h; sourceTree = "<group>"; };
 		B2045A101DA2DA990037E44E /* BeaconBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconBridge.m; sourceTree = "<group>"; };
+		B2045A4E1DA343C80037E44E /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		B2045A4F1DA343C80037E44E /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		B2045A501DA343C80037E44E /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		B2045A511DA343C80037E44E /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		B2045A521DA343C80037E44E /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		B2045A531DA343C80037E44E /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		B2045A541DA343C80037E44E /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		B2045A551DA343C80037E44E /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +311,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B2045A4D1DA343C70037E44E /* Fonts */,
 				B2045A0F1DA2DA990037E44E /* BeaconBridge.h */,
 				B2045A101DA2DA990037E44E /* BeaconBridge.m */,
 				B2045A0D1DA2DA700037E44E /* PhySdk.framework */,
@@ -314,6 +331,21 @@
 				00E356EE1AD99517003FC87E /* DemoDayTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B2045A4D1DA343C70037E44E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B2045A4E1DA343C80037E44E /* Entypo.ttf */,
+				B2045A4F1DA343C80037E44E /* EvilIcons.ttf */,
+				B2045A501DA343C80037E44E /* FontAwesome.ttf */,
+				B2045A511DA343C80037E44E /* Foundation.ttf */,
+				B2045A521DA343C80037E44E /* Ionicons.ttf */,
+				B2045A531DA343C80037E44E /* MaterialIcons.ttf */,
+				B2045A541DA343C80037E44E /* Octicons.ttf */,
+				B2045A551DA343C80037E44E /* Zocial.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -520,7 +552,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2045A5B1DA343C80037E44E /* MaterialIcons.ttf in Resources */,
+				B2045A5C1DA343C80037E44E /* Octicons.ttf in Resources */,
+				B2045A5D1DA343C80037E44E /* Zocial.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				B2045A581DA343C80037E44E /* FontAwesome.ttf in Resources */,
+				B2045A571DA343C80037E44E /* EvilIcons.ttf in Resources */,
+				B2045A5A1DA343C80037E44E /* Ionicons.ttf in Resources */,
+				B2045A591DA343C80037E44E /* Foundation.ttf in Resources */,
+				B2045A561DA343C80037E44E /* Entypo.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -598,6 +638,7 @@
 				INFOPLIST_FILE = DemoDayTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoDay.app/DemoDay";
 			};
@@ -612,6 +653,7 @@
 				INFOPLIST_FILE = DemoDayTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoDay.app/DemoDay";
 			};

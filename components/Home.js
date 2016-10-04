@@ -2,13 +2,17 @@ import React from 'react';
 import {
   Text,
   View,
-  StyleSheet,
-  RefreshControl
+  StyleSheet
 } from 'react-native';
 import ParallaxView from 'react-native-parallax-view';
 import { NativeModules } from 'react-native';
 import { NativeAppEventEmitter } from 'react-native';
 import {Card, CardItem, Thumbnail } from 'native-base';
+import CheckBox from 'react-native-icon-checkbox';
+import { Actions } from 'react-native-router-flux';
+
+window.navigator.userAgent = 'react-native';
+import io from 'socket.io-client/socket.io';
 
 const BeaconBridge = NativeModules.BeaconBridge;
 
@@ -17,7 +21,8 @@ const Home = React.createClass({
   getInitialState() {
     return({
       demos: [],
-      tempDemoArray: []
+      tempDemoArray: [],
+      isRadioSelected: true
     });
   },
 
@@ -32,6 +37,12 @@ const Home = React.createClass({
       this.setState({demos: this.state.tempDemoArray});
       this.scanForDemos();
     }, 4000);
+
+    const socket = io('localhost:3000', {jsonp: false});
+    socket.on('connect', () => {
+      console.log("Connected: ", socket.id);
+    });
+
   },
 
   componentWillUnmount() {
@@ -49,6 +60,16 @@ const Home = React.createClass({
     // }
   },
 
+  handleSelectedRadionButton(checked) {
+    this.setState({
+      isRadioSelected: checked,
+    });
+  },
+
+  goToFavorites() {
+    Actions.favorites();
+  },
+
   render() {
     return (
       <View style={styles.container} >
@@ -62,11 +83,18 @@ const Home = React.createClass({
                 const favicon = demo.faviconUrl;
                 return (
                   <Card key={index}>
-                    <CardItem>
+                    <CardItem button onPress={this.goToFavorites}>
                       <Thumbnail source={{uri: favicon}} />
                       <Text>{demo.title}</Text>
+                      <CheckBox
+                        size={30}
+                        checked={this.state.isRadioSelected}
+                        onPress={this.handleSelectedRadionButton}
+                        uncheckedIconName="star-border"
+                        checkedIconName="star"
+                      />
                     </CardItem>
-                    <CardItem cardBody>
+                    <CardItem cardBody button onPress={this.goToFavorites}>
                       <Text>{demo.desc}</Text>
                     </CardItem>
                   </Card>
