@@ -22,7 +22,7 @@ const Home = React.createClass({
     return({
       demos: [],
       tempDemoArray: [],
-      isRadioSelected: true
+      isFavorited: false
     });
   },
 
@@ -60,9 +60,9 @@ const Home = React.createClass({
     // }
   },
 
-  handleSelectedRadionButton(checked) {
+  favoritePressed(checked) {
     this.setState({
-      isRadioSelected: checked,
+      isFavorited: checked,
     });
   },
 
@@ -88,8 +88,8 @@ const Home = React.createClass({
                       <Text>{demo.title}</Text>
                       <CheckBox
                         size={30}
-                        checked={this.state.isRadioSelected}
-                        onPress={this.handleSelectedRadionButton}
+                        checked={this.state.isFavorited}
+                        onPress={this.favoritePressed}
                         uncheckedIconName="star-border"
                         checkedIconName="star"
                       />

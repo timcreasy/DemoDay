@@ -8,6 +8,12 @@ app.get('/', (req, res) => {
   res.send("Server running");
 });
 
+app.post('/', (req, res) => {
+  console.log("I RECEIVED SOMETHING");
+  console.log(req.body);
+  res.json({msg: "hello"});
+})/
+
 io.on('connection', function (socket) {
   console.log("Socket connected");
   socket.emit('news', "Hello");
