@@ -27,7 +27,7 @@ const Login = React.createClass({
   loginPressed() {
 
     // ENDPOINT
-    const ENDPOINT = 'http://10.0.0.44:3000/api/users';
+    const ENDPOINT = 'http://10.0.0.44:3000/api/login';
 
     const requestObj = {
       method: 'POST',
@@ -43,9 +43,11 @@ const Login = React.createClass({
 
     fetch(ENDPOINT, requestObj)
     .then((response) => {
+      console.log("RES", response);
       return response.json();
     })
     .then((data) => {
+      console.log("DA", data);
       console.log(data);
     })
     .catch(err => console.log(err));

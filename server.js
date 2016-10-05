@@ -1,9 +1,10 @@
 const app = require('express')();
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+// const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const { connect } = require('./db/database.js');
+const User = require('./models/User');
 
 app.use(bodyParser.json());
 
@@ -12,15 +13,45 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/users', (req, res) => {
-  bcrypt.hash(req.body.password, 10, (err, hash) => {
-    res.json({msg: hash});
-  });
+  User
+    .create({email: req.body.email, password: req.body.password})
+    .then((user) => {
+      res.json({user: user});
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
-io.on('connection', function (socket) {
-  console.log("Socket connected");
-  socket.emit('news', "Hello");
+app.post('/api/login', (req, res) => {
+  User
+    .findOne({email: req.body.email})
+    .then((user) => {
+      if (!user) {
+        res.json({msg: "Email is not registered"});
+      } else {
+        bcrypt.compare(req.body.password, user.password, (err, matches) => {
+          if (err) {
+            res.json({msg: "An unknown error occured, try again"});
+          } else {
+            if (!matches) {
+              res.json({msg: "Incorrect password"});
+            } else if (matches) {
+              res.json({user: user});
+            }
+          }
+        })
+      }
+    })
+    .catch((err) => {
+      res.json({msg: "An unknown error occured, try again"});
+    })
 });
+
+// io.on('connection', function (socket) {
+//   console.log("Socket connected");
+//   socket.emit('news', "Hello");
+// });
 
 connect
   .then(() => {
@@ -29,5 +60,5 @@ connect
     });
   })
   .catch((err) => {
-    console.log("ERR", err);
+    console.log("An error occured:", err);
   });
