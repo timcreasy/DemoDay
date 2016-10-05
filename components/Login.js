@@ -12,7 +12,8 @@ const Login = React.createClass({
   getInitialState() {
     return({
       email: "",
-      password: ""
+      password: "",
+      errorMsg: "",
     });
   },
 
@@ -43,16 +44,16 @@ const Login = React.createClass({
 
     fetch(ENDPOINT, requestObj)
     .then((response) => {
-      console.log("RES", response);
       return response.json();
     })
     .then((data) => {
-      console.log("DA", data);
-      console.log(data);
+      if (data.user) {
+        Actions.home({type: "reset"});
+      } else {
+        this.setState({errorMsg: data.msg});
+      }
     })
     .catch(err => console.log(err));
-
-    Actions.home({type: "reset"});
 
   },
 
@@ -68,6 +69,7 @@ const Login = React.createClass({
           <Icon name='ios-unlock' />
           <Input placeholder='Password' onChangeText={this.passwordChanged} secureTextEntry={true}/>
         </InputGroup>
+        <Text>{this.state.errorMsg}</Text>
         <View style={styles.buttonContainer}>
           <Button block success onPress={this.loginPressed}>Login</Button>
         </View>
