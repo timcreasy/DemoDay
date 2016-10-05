@@ -69,7 +69,26 @@ const Login = React.createClass({
           <Icon name='ios-unlock' />
           <Input placeholder='Password' onChangeText={this.passwordChanged} secureTextEntry={true}/>
         </InputGroup>
-        <Text>{this.state.errorMsg}</Text>
+        <View>
+          {(() => {
+            if (this.state.errorMsg) {
+              return (
+                <View style={styles.errorContainer}>
+                  <Text>{this.state.errorMsg}</Text>
+                </View>
+              );
+            }
+          })()}
+        </View>
+        {(() => {
+          console.log("f");
+            if (this.state.errorMsg) {
+              <View style={styles.errorContainer}>
+                <Text>{this.state.errorMsg}</Text>
+              </View>
+            }
+          }
+        )}
         <View style={styles.buttonContainer}>
           <Button block success onPress={this.loginPressed}>Login</Button>
         </View>
@@ -82,9 +101,14 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 64,
   },
-
+  errorContainer: {
+    padding: 20,
+    alignItems: 'center'
+  },
   buttonContainer: {
-    padding: 20
+    paddingTop: 8,
+    paddingRight: 20,
+    paddingLeft: 20
   }
 })
 
