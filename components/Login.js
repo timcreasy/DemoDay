@@ -26,33 +26,29 @@ const Login = React.createClass({
 
   loginPressed() {
 
-    const user = {
-      email: this.state.email,
-      password: this.state.password
+    // ENDPOINT
+    const ENDPOINT = 'http://10.0.0.44:3000/api/users';
+
+    const requestObj = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      })
     };
 
-    // // ENDPOINT
-    // const ENDPOINT = 'http://localhost:3000';
-
-    // const requestObj = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     body: user
-    //   })
-    // };
-
-    // fetch(ENDPOINT, requestObj)
-    // .then((response) => {
-    //   return response.json();
-    // })
-    // .then((data) => {
-    //   console.log(data);
-    // })
-    // .catch(err => console.log(err));
+    fetch(ENDPOINT, requestObj)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch(err => console.log(err));
 
     Actions.home({type: "reset"});
 
