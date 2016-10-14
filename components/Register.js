@@ -7,7 +7,7 @@ import {
 import {Button, Container, Content, List, ListItem, InputGroup, Icon, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
-const Login = React.createClass({
+const Register = React.createClass({
 
   getInitialState() {
     return({
@@ -25,10 +25,10 @@ const Login = React.createClass({
     this.setState({password: input});
   },
 
-  loginPressed() {
+  registerPressed() {
 
     // ENDPOINT
-    const ENDPOINT = 'http://104.236.71.66:3000/api/login';
+    const ENDPOINT = 'http://10.0.0.44:3000/api/users';
 
     const requestObj = {
       method: 'POST',
@@ -49,9 +49,9 @@ const Login = React.createClass({
     .then((data) => {
       if (data.user) {
         console.log(data);
-        Actions.home({type: "reset"});
+        Actions.login({type: "reset"});
       } else {
-        this.setState({errorMsg: data.msg});
+        this.setState({errorMsg: data});
       }
     })
     .catch(err => console.log(err));
@@ -82,7 +82,6 @@ const Login = React.createClass({
           })()}
         </View>
         {(() => {
-          console.log("f");
             if (this.state.errorMsg) {
               <View style={styles.errorContainer}>
                 <Text>{this.state.errorMsg}</Text>
@@ -91,7 +90,7 @@ const Login = React.createClass({
           }
         )}
         <View style={styles.buttonContainer}>
-          <Button block success onPress={this.loginPressed}>Login</Button>
+          <Button block success onPress={this.registerPressed}>Register</Button>
         </View>
       </View>
     );
@@ -113,4 +112,4 @@ const styles = StyleSheet.create({
   }
 })
 
-module.exports = Login;
+module.exports = Register;

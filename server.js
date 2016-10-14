@@ -1,6 +1,5 @@
 const app = require('express')();
 const server = require('http').Server(app);
-// const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const { connect } = require('./db/database.js');
@@ -47,11 +46,6 @@ app.post('/api/login', (req, res) => {
       res.json({msg: "An unknown error occured, try again"});
     })
 });
-
-// io.on('connection', function (socket) {
-//   console.log("Socket connected");
-//   socket.emit('news', "Hello");
-// });
 
 connect
   .then(() => {
