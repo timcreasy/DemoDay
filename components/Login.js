@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage
 } from 'react-native';
 import {Button, Container, Content, List, ListItem, InputGroup, Icon, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -48,8 +49,14 @@ const Login = React.createClass({
     })
     .then((data) => {
       if (data.user) {
-        console.log(data);
+        AsyncStorage.setItem('currentUser', JSON.stringify(data.user));
         Actions.home({type: "reset"});
+        // try {
+        //   await AsyncStorage.setItem('@UserStore:key', JSON.stringify(data.user));
+        //   Actions.home({type: "reset"});
+        // } catch (error) {
+        //   this.setState({errorMsg: "An error occured, try again"});
+        // }
       } else {
         this.setState({errorMsg: data.msg});
       }

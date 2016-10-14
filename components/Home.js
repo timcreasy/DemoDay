@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage
 } from 'react-native';
 import ParallaxView from 'react-native-parallax-view';
 import { NativeModules } from 'react-native';
@@ -11,8 +12,8 @@ import {Card, CardItem, Thumbnail } from 'native-base';
 import CheckBox from 'react-native-icon-checkbox';
 import { Actions } from 'react-native-router-flux';
 
-window.navigator.userAgent = 'react-native';
-import io from 'socket.io-client/socket.io';
+// window.navigator.userAgent = 'react-native';
+// import io from 'socket.io-client/socket.io';
 
 const BeaconBridge = NativeModules.BeaconBridge;
 
@@ -38,10 +39,10 @@ const Home = React.createClass({
       this.scanForDemos();
     }, 4000);
 
-    const socket = io('localhost:3000', {jsonp: false});
-    socket.on('connect', () => {
-      console.log("Connected: ", socket.id);
-    });
+    // const socket = io('localhost:3000', {jsonp: false});
+    // socket.on('connect', () => {
+    //   console.log("Connected: ", socket.id);
+    // });
 
   },
 
@@ -64,6 +65,11 @@ const Home = React.createClass({
     this.setState({
       isFavorited: checked,
     });
+
+    AsyncStorage.getItem('currentUser', (err, user) => {
+      console.log("USER:", user);
+    });
+
   },
 
   goToFavorites() {
@@ -83,7 +89,7 @@ const Home = React.createClass({
                 const favicon = demo.faviconUrl;
                 return (
                   <Card key={index}>
-                    <CardItem button onPress={this.goToFavorites}>
+                    <CardItem>
                       <Thumbnail source={{uri: favicon}} />
                       <Text>{demo.title}</Text>
                       <CheckBox
