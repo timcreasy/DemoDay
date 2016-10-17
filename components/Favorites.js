@@ -7,6 +7,7 @@ import {
   ScrollView
 } from 'react-native';
 import {Card, CardItem, Thumbnail } from 'native-base';
+import CheckBox from 'react-native-icon-checkbox';
 
 const Favorites = React.createClass({
 
@@ -27,6 +28,21 @@ const Favorites = React.createClass({
 
   },
 
+  favoritePressed(cardData) {
+    
+    AsyncStorage.getItem('currentUser')
+      .then(res => JSON.parse(res))
+      .then(data => {
+        data.favorites = data.favorites.filter(upd => {
+          return upd.scanUrl !== cardData.scanUrl;
+        });
+        this.setState({favorites: data.favorites});
+        return AsyncStorage.mergeItem('currentUser', JSON.stringify(data));
+      })
+      .catch(error => console.log('Error!'));
+
+  },
+
   render() {
     return (
       <View style={styles.container} >
@@ -40,6 +56,12 @@ const Favorites = React.createClass({
                   <CardItem>
                     <Thumbnail source={{uri: favicon}} />
                     <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.favoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
                   </CardItem>
                   <CardItem cardBody>
                     <Text>{demo.desc}</Text>

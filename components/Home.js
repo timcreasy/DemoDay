@@ -25,6 +25,7 @@ const Home = React.createClass({
   },
 
   componentDidMount() {
+    console.log("HEY");
     BeaconBridge.initPhyManagerWithApiKey("51fd9f81-3d04-5c1b-8cd3-d86a3ea04453");
     NativeAppEventEmitter.addListener('BeaconsFound', (demos) => {
       this.setState({tempDemoArray: JSON.parse(demos)});
@@ -39,6 +40,7 @@ const Home = React.createClass({
   },
 
   componentWillUnmount() {
+    console.log("BYE");
     BeaconBridge.stopScanningForBeacons();
   },
 
@@ -54,7 +56,7 @@ const Home = React.createClass({
 
   favoritePressed(checked, cardData) {
 
-    // Handle odd checkbox behavior
+    // Toggle checkbox
     checked = !checked;
 
     // Toggle isFavorited
@@ -90,6 +92,7 @@ const Home = React.createClass({
   },
 
   render() {
+
     return (
       <View style={styles.container} >
         <ParallaxView
