@@ -1,47 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
+import {Scene, Router, Actions} from 'react-native-router-flux';
+import Home from './components/Home';
+import Favorites from './components/Favorites';
+import Login from './components/Login';
+import Register from './components/Register';
 
-class DemoDay extends Component {
+const DemoDay = React.createClass({
+
+  favoritesPressed() {
+    Actions.favorites();
+  },
+
+  registerPressed() {
+    Actions.register();
+  },
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <Router>
+        <Scene key="root">
+          <Scene key="login" component={Login} title="Login" initial={true} onRight={this.registerPressed} rightTitle="Register" />
+          <Scene key="register" component={Register} title="Register" />
+          <Scene key="home" component={Home} title="Cohort 14" onRight={this.favoritesPressed} rightTitle="Favorites"/>
+          <Scene key="favorites" component={Favorites} title="Favorites" />
+        </Scene>
+      </Router>
     );
   }
-}
+});
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
 
 AppRegistry.registerComponent('DemoDay', () => DemoDay);
