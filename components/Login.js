@@ -51,12 +51,6 @@ const Login = React.createClass({
       if (data.user) {
         AsyncStorage.setItem('currentUser', JSON.stringify(data.user));
         Actions.home({type: "reset"});
-        // try {
-        //   await AsyncStorage.setItem('@UserStore:key', JSON.stringify(data.user));
-        //   Actions.home({type: "reset"});
-        // } catch (error) {
-        //   this.setState({errorMsg: "An error occured, try again"});
-        // }
       } else {
         this.setState({errorMsg: data.msg});
       }

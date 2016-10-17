@@ -12,9 +12,6 @@ import {Card, CardItem, Thumbnail } from 'native-base';
 import CheckBox from 'react-native-icon-checkbox';
 import { Actions } from 'react-native-router-flux';
 
-// window.navigator.userAgent = 'react-native';
-// import io from 'socket.io-client/socket.io';
-
 const BeaconBridge = NativeModules.BeaconBridge;
 
 const Home = React.createClass({
@@ -39,11 +36,6 @@ const Home = React.createClass({
       this.scanForDemos();
     }, 4000);
 
-    // const socket = io('localhost:3000', {jsonp: false});
-    // socket.on('connect', () => {
-    //   console.log("Connected: ", socket.id);
-    // });
-
   },
 
   componentWillUnmount() {
@@ -58,17 +50,27 @@ const Home = React.createClass({
         this.setState({demos: this.state.tempDemoArray});
         this.scanForDemos();
       }, 4000);
-    // }
   },
 
   favoritePressed(checked) {
+    
     this.setState({
       isFavorited: checked,
     });
 
-    AsyncStorage.getItem('currentUser', (err, user) => {
-      console.log("USER:", user);
-    });
+    if (checked) {
+      AsyncStorage.getItem('currentUser')
+        .then(res => JSON.parse(res))
+        .then(data => {
+          if (!data.favorites) { data.favorites = [] };
+          data.favorites.push(Date.now());
+          return AsyncStorage.mergeItem('currentUser', JSON.stringify(data));
+        })
+        .then(() => AsyncStorage.getItem('currentUser'))
+        .then(res => JSON.parse(res))
+        .then(data => console.log(data))
+        .catch(error => console.log('Error!'));
+    }
 
   },
 
