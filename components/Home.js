@@ -53,7 +53,7 @@ const Home = React.createClass({
   },
 
   favoritePressed(checked) {
-    
+
     this.setState({
       isFavorited: checked,
     });
@@ -66,9 +66,9 @@ const Home = React.createClass({
           data.favorites.push(Date.now());
           return AsyncStorage.mergeItem('currentUser', JSON.stringify(data));
         })
-        .then(() => AsyncStorage.getItem('currentUser'))
-        .then(res => JSON.parse(res))
-        .then(data => console.log(data))
+        // .then(() => AsyncStorage.getItem('currentUser'))
+        // .then(res => JSON.parse(res))
+        // .then(data => console.log(data))
         .catch(error => console.log('Error!'));
     }
 
