@@ -25,6 +25,7 @@ const Home = React.createClass({
   },
 
   componentDidMount() {
+    console.log("HEY");
     BeaconBridge.initPhyManagerWithApiKey("51fd9f81-3d04-5c1b-8cd3-d86a3ea04453");
     NativeAppEventEmitter.addListener('BeaconsFound', (demos) => {
       this.setState({tempDemoArray: JSON.parse(demos)});
@@ -39,6 +40,7 @@ const Home = React.createClass({
   },
 
   componentWillUnmount() {
+    console.log("BYE");
     BeaconBridge.stopScanningForBeacons();
   },
 
@@ -54,59 +56,75 @@ const Home = React.createClass({
 
   favoritePressed(checked, cardData) {
 
+    // Toggle checkbox
+    checked = !checked;
+
     // Toggle isFavorited
     this.setState({
-      isFavorited: !checked,
+      isFavorited: checked,
     });
 
-    if (checked) {
-      AsyncStorage.getItem('currentUser')
-        .then(res => JSON.parse(res))
-        .then(data => {
-          if (!data.favorites) { data.favorites = [] };
-          data.favorites.push(cardData);
-          return AsyncStorage.mergeItem('currentUser', JSON.stringify(data));
-        })
-        .catch(error => console.log('Error!'));
-    }
+    AsyncStorage.getItem('currentUser')
+      .then(res => JSON.parse(res))
+      .then(data => {
+        // Create favorites if it does not exist
+        if (!data.favorites) { data.favorites = [] };
+        // Return object if it exists in favorites array
+        const obj = data.favorites.filter(obj => {
+            return obj.scanUrl === cardData.scanUrl;
+        })[0];
+        // Add to favorites if not already added, remove if exists
+        if (checked && !obj) {
+          data.favorites.push(cardData)
+        } else {
+          data.favorites = data.favorites.filter(upd => {
+            return upd.scanUrl !== obj.scanUrl;
+          });
+        }
+        return AsyncStorage.mergeItem('currentUser', JSON.stringify(data));
+      })
+      .catch(error => console.log('Error!'));
 
   },
 
   goToFavorites() {
-    Actions.favorites();
+    console.log("Card pressed");
   },
 
   render() {
+
     return (
       <View style={styles.container} >
         <ParallaxView
           backgroundSource={require('../imgs/groupstandard.jpg')}
           windowHeight={140} >
-          <View style={styles.scrollContainer}>
-            <Text style={styles.mainHeader}>Demos Near Me</Text>
-            {
-              this.state.demos.map((demo, index) => {
-                const favicon = demo.faviconUrl;
-                return (
-                  <Card key={index}>
-                    <CardItem>
-                      <Thumbnail source={{uri: favicon}} />
-                      <Text>{demo.title}</Text>
-                      <CheckBox
-                        size={30}
-                        checked={this.state.isFavorited}
-                        onPress={() => this.favoritePressed(this.state.isFavorited, demo)}
-                        uncheckedIconName="star-border"
-                        checkedIconName="star"
-                      />
-                    </CardItem>
-                    <CardItem cardBody button onPress={this.goToFavorites}>
-                      <Text>{demo.desc}</Text>
-                    </CardItem>
-                  </Card>
-                );
-              })
-            }
+          <View style={styles.demoContainer}>
+            <View style={styles.scrollContainer}>
+              <Text style={styles.mainHeader}>Demos Near Me</Text>
+              {
+                this.state.demos.map((demo, index) => {
+                  const favicon = demo.faviconUrl;
+                  return (
+                    <Card key={index}>
+                      <CardItem>
+                        <Thumbnail source={{uri: favicon}} />
+                        <Text>{demo.title}</Text>
+                        <CheckBox
+                          size={30}
+                          checked={this.state.isFavorited}
+                          onPress={() => this.favoritePressed(this.state.isFavorited, demo)}
+                          uncheckedIconName="star-border"
+                          checkedIconName="star"
+                        />
+                      </CardItem>
+                      <CardItem cardBody button onPress={this.goToFavorites}>
+                        <Text>{demo.desc}</Text>
+                      </CardItem>
+                    </Card>
+                  );
+                })
+              }
+            </View>
           </View>
         </ParallaxView>
       </View>
@@ -117,6 +135,9 @@ const Home = React.createClass({
 const styles = StyleSheet.create({
   container: {
     paddingTop: 64
+  },
+  demoContainer: {
+    height: 500
   },
   scrollContainer: {
     paddingHorizontal: 10,

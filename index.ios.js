@@ -13,6 +13,11 @@ import Register from './components/Register';
 
 const DemoDay = React.createClass({
 
+  goHome() {
+    Actions.refresh();
+    Actions.pop();
+  },
+
   favoritesPressed() {
     Actions.favorites();
   },
@@ -28,7 +33,7 @@ const DemoDay = React.createClass({
           <Scene key="login" component={Login} title="Login" initial={true} onRight={this.registerPressed} rightTitle="Register" />
           <Scene key="register" component={Register} title="Register" />
           <Scene key="home" component={Home} title="Cohort 14" onRight={this.favoritesPressed} rightTitle="Favorites"/>
-          <Scene key="favorites" component={Favorites} title="Favorites" />
+          <Scene key="favorites" component={Favorites} title="Favorites" onBack={this.goHome}/>
         </Scene>
       </Router>
     );
