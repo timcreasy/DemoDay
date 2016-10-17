@@ -52,10 +52,11 @@ const Home = React.createClass({
       }, 4000);
   },
 
-  favoritePressed(checked) {
+  favoritePressed(checked, cardData) {
 
+    // Toggle isFavorited
     this.setState({
-      isFavorited: checked,
+      isFavorited: !checked,
     });
 
     if (checked) {
@@ -63,12 +64,9 @@ const Home = React.createClass({
         .then(res => JSON.parse(res))
         .then(data => {
           if (!data.favorites) { data.favorites = [] };
-          data.favorites.push(Date.now());
+          data.favorites.push(cardData);
           return AsyncStorage.mergeItem('currentUser', JSON.stringify(data));
         })
-        // .then(() => AsyncStorage.getItem('currentUser'))
-        // .then(res => JSON.parse(res))
-        // .then(data => console.log(data))
         .catch(error => console.log('Error!'));
     }
 
@@ -82,7 +80,7 @@ const Home = React.createClass({
     return (
       <View style={styles.container} >
         <ParallaxView
-          backgroundSource={require('../imgs/main.jpg')}
+          backgroundSource={require('../imgs/groupstandard.jpg')}
           windowHeight={140} >
           <View style={styles.scrollContainer}>
             <Text style={styles.mainHeader}>Demos Near Me</Text>
@@ -97,7 +95,7 @@ const Home = React.createClass({
                       <CheckBox
                         size={30}
                         checked={this.state.isFavorited}
-                        onPress={this.favoritePressed}
+                        onPress={() => this.favoritePressed(this.state.isFavorited, demo)}
                         uncheckedIconName="star-border"
                         checkedIconName="star"
                       />

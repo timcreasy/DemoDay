@@ -3,7 +3,8 @@ import {
   Text,
   View,
   StyleSheet,
-  AsyncStorage
+  AsyncStorage,
+  ScrollView
 } from 'react-native';
 import {Card, CardItem, Thumbnail } from 'native-base';
 
@@ -29,16 +30,25 @@ const Favorites = React.createClass({
   render() {
     return (
       <View style={styles.container} >
-        <Text>Favorites</Text>
-        {
-          this.state.favorites.map((favorite, index) => {
-            return (
-              <View key={index}>
-                <Text>{favorite}</Text>
-              </View>
-            );
-          })
-        }
+        <ScrollView>
+          <Text>Favorites</Text>
+          {
+            this.state.favorites.map((demo, index) => {
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+        </ScrollView>
       </View>
     );
   }
