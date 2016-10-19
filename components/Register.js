@@ -72,7 +72,7 @@ const Register = React.createClass({
           />
         <InputGroup>
           <Icon name='ios-person' />
-          <Input placeholder='Email' onChangeText={this.emailChanged} />
+          <Input placeholder='Email' onChangeText={this.emailChanged} keyboardType="email-address" autoCapitalize="none"/>
         </InputGroup>
 
         <InputGroup>
