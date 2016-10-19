@@ -10,6 +10,7 @@ import Home from './components/Home';
 import Favorites from './components/Favorites';
 import Login from './components/Login';
 import Register from './components/Register';
+import emitter from './events';
 
 const DemoDay = React.createClass({
 
@@ -23,6 +24,7 @@ const DemoDay = React.createClass({
   },
 
   logoutPressed() {
+    emitter.emit('logout');
     Actions.login({type: "reset"});
   },
 

@@ -12,10 +12,14 @@ import { NativeAppEventEmitter } from 'react-native';
 import {Card, CardItem, Thumbnail } from 'native-base';
 import CheckBox from 'react-native-icon-checkbox';
 import { Actions } from 'react-native-router-flux';
+import TimerMixin from 'react-timer-mixin';
+import emitter from '../events';
 
 const BeaconBridge = NativeModules.BeaconBridge;
 
 const Home = React.createClass({
+
+  mixins: [TimerMixin],
 
   getInitialState() {
     return({
@@ -26,17 +30,20 @@ const Home = React.createClass({
   },
 
   componentDidMount() {
-    console.log("HEY");
     BeaconBridge.initPhyManagerWithApiKey("51fd9f81-3d04-5c1b-8cd3-d86a3ea04453");
     NativeAppEventEmitter.addListener('BeaconsFound', (demos) => {
       this.setState({tempDemoArray: JSON.parse(demos)});
     });
     BeaconBridge.startScanningForBeacons();
-    setTimeout(() => {
+    this.setTimeout(() => {
       BeaconBridge.stopScanningForBeacons()
       this.setState({demos: this.state.tempDemoArray});
       this.scanForDemos();
     }, 4000);
+
+    emitter.addListener('logout', () => {
+      BeaconBridge.stopScanningForBeacons();
+    });
 
   },
 
@@ -45,13 +52,13 @@ const Home = React.createClass({
   },
 
   scanForDemos() {
-      BeaconBridge.stopScanningForBeacons();
-      BeaconBridge.startScanningForBeacons();
-      setTimeout(() => {
-        BeaconBridge.stopScanningForBeacons()
-        this.setState({demos: this.state.tempDemoArray});
-        this.scanForDemos();
-      }, 4000);
+    BeaconBridge.stopScanningForBeacons();
+    BeaconBridge.startScanningForBeacons();
+    this.setTimeout(() => {
+      BeaconBridge.stopScanningForBeacons()
+      this.setState({demos: this.state.tempDemoArray});
+      this.scanForDemos();
+    }, 4000);
   },
 
   favoritePressed(checked, cardData) {
