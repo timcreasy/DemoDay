@@ -25,6 +25,10 @@ const Register = React.createClass({
     this.setState({password: input});
   },
 
+  loginPressed() {
+    Actions.pop();
+  },
+
   registerPressed() {
 
     // ENDPOINT
@@ -92,6 +96,7 @@ const Register = React.createClass({
         <View style={styles.buttonContainer}>
           <Button block success onPress={this.registerPressed}>Register</Button>
         </View>
+        <Text onPress={this.loginPressed}>Have an account? Log in</Text>
       </View>
     );
   }
@@ -100,6 +105,7 @@ const Register = React.createClass({
 const styles = StyleSheet.create({
   container: {
     paddingTop: 64,
+    alignItems: 'center'
   },
   errorContainer: {
     padding: 20,
