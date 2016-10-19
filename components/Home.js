@@ -3,6 +3,7 @@ import {
   Text,
   View,
   StyleSheet,
+  Image,
   AsyncStorage
 } from 'react-native';
 import ParallaxView from 'react-native-parallax-view';
@@ -40,7 +41,6 @@ const Home = React.createClass({
   },
 
   componentWillUnmount() {
-    console.log("BYE");
     BeaconBridge.stopScanningForBeacons();
   },
 

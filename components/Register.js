@@ -49,7 +49,7 @@ const Register = React.createClass({
     .then((data) => {
       if (data.user) {
         console.log(data);
-        Actions.login({type: "reset"});
+        Actions.login({type: ""});
       } else {
         this.setState({errorMsg: data});
       }

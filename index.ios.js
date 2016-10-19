@@ -22,6 +22,10 @@ const DemoDay = React.createClass({
     Actions.favorites();
   },
 
+  logoutPressed() {
+    Actions.login({type: "reset"});
+  },
+
   registerPressed() {
     Actions.register();
   },
@@ -30,9 +34,9 @@ const DemoDay = React.createClass({
     return (
       <Router>
         <Scene key="root">
-          <Scene key="login" component={Login} title="Login" initial={true} onRight={this.registerPressed} rightTitle="Register" />
+          <Scene key="login" component={Login} title="Login" initial={true} onRight={this.registerPressed} rightTitle="Register" hideNavBar={true}/>
           <Scene key="register" component={Register} title="Register" />
-          <Scene key="home" component={Home} title="Cohort 14" onRight={this.favoritesPressed} rightTitle="Favorites"/>
+          <Scene key="home" component={Home} title="Cohort 14" onRight={this.favoritesPressed} rightTitle="Favorites" leftTitle="Logout" onLeft={this.logoutPressed}/>
           <Scene key="favorites" component={Favorites} title="Favorites" onBack={this.goHome}/>
         </Scene>
       </Router>
