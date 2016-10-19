@@ -27,6 +27,10 @@ const Login = React.createClass({
     this.setState({password: input});
   },
 
+  registerPressed() {
+    Actions.register();
+  },
+
   loginPressed() {
 
     // ENDPOINT
@@ -88,7 +92,6 @@ const Login = React.createClass({
           })()}
         </View>
         {(() => {
-          console.log("f");
             if (this.state.errorMsg) {
               <View style={styles.errorContainer}>
                 <Text>{this.state.errorMsg}</Text>
@@ -99,6 +102,7 @@ const Login = React.createClass({
         <View style={styles.buttonContainer}>
           <Button block success onPress={this.loginPressed}>Login</Button>
         </View>
+        <Text onPress={this.registerPressed}>Don't have an account?</Text>
       </View>
     );
   }
