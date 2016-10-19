@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  Image
 } from 'react-native';
 import {Button, Container, Content, List, ListItem, InputGroup, Icon, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -65,6 +66,10 @@ const Register = React.createClass({
   render() {
     return (
       <View style={styles.container} >
+        <Image
+            style={styles.logo}
+            source={require('../imgs/logoooo.png')}
+          />
         <InputGroup>
           <Icon name='ios-person' />
           <Input placeholder='Email' onChangeText={this.emailChanged} />
@@ -104,8 +109,12 @@ const Register = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 64,
+    paddingTop: 15,
     alignItems: 'center'
+  },
+  logo: {
+    width: 150, 
+    height: 150
   },
   errorContainer: {
     padding: 20,
