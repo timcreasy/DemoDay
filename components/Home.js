@@ -61,6 +61,60 @@ const Home = React.createClass({
     }, 4000);
   },
 
+  unfavoriteDemo(demo) {
+
+    AsyncStorage.getItem('currentUser')
+      .then(res => JSON.parse(res))
+      .then(user => {
+        // ENDPOINT
+        const ENDPOINT = 'http://104.236.71.66:3000/api/favorites';
+        const requestObj = {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            employer: user._id,
+            student: demo._id
+          })
+        };
+        fetch(ENDPOINT, requestObj)
+        .then((data) => {
+          console.log("Data:", data);
+        })
+        .catch(err => console.log(err));
+      });
+
+  },
+
+  favoriteDemo(demo) {
+
+    AsyncStorage.getItem('currentUser')
+      .then(res => JSON.parse(res))
+      .then(user => {
+        // ENDPOINT
+        const ENDPOINT = 'http://104.236.71.66:3000/api/favorites';
+        const requestObj = {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            employer: user._id,
+            student: demo._id
+          })
+        };
+        fetch(ENDPOINT, requestObj)
+        .then((data) => {
+          console.log("Data:", data);
+        })
+        .catch(err => console.log(err));
+      });
+
+  },
+
   favoritePressed(checked, cardData) {
 
     // Toggle checkbox
@@ -70,6 +124,8 @@ const Home = React.createClass({
     this.setState({
       isFavorited: checked,
     });
+
+    // this.favoriteDemo({_id: "1234567"});
 
     AsyncStorage.getItem('currentUser')
       .then(res => JSON.parse(res))
@@ -83,8 +139,10 @@ const Home = React.createClass({
         // Add to favorites if not already added, remove if exists
         if (checked && !obj) {
           data.favorites.push(cardData)
+          this.favoriteDemo({_id: "1234567"});
         } else {
           data.favorites = data.favorites.filter(upd => {
+            this.unfavoriteDemo({_id: "1234567"});
             return upd.scanUrl !== obj.scanUrl;
           });
         }
