@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  RefreshControl
 } from 'react-native';
 import ParallaxView from 'react-native-parallax-view';
 import { NativeModules } from 'react-native';
@@ -26,7 +27,8 @@ const Home = React.createClass({
       demos: [],
       tempDemoArray: [],
       isFavorited: false,
-      favorites: []
+      favorites: [],
+      refreshing: false
     });
   },
 
@@ -35,31 +37,14 @@ const Home = React.createClass({
     NativeAppEventEmitter.addListener('BeaconsFound', (demos) => {
       this.setState({tempDemoArray: JSON.parse(demos)});
     });
-    BeaconBridge.startScanningForBeacons();
-    this.setTimeout(() => {
-      BeaconBridge.stopScanningForBeacons()
-      this.setState({demos: this.state.tempDemoArray});
-      this.scanForDemos();
-    }, 4000);
-
+    this.getFavoritesForUser();
     emitter.addListener('logout', () => {
       BeaconBridge.stopScanningForBeacons();
     });
-
   },
 
   componentWillUnmount() {
     BeaconBridge.stopScanningForBeacons();
-  },
-
-  scanForDemos() {
-    BeaconBridge.stopScanningForBeacons();
-    BeaconBridge.startScanningForBeacons();
-    this.setTimeout(() => {
-      BeaconBridge.stopScanningForBeacons()
-      this.setState({demos: this.state.tempDemoArray});
-      this.scanForDemos();
-    }, 4000);
   },
 
   getDemoId(cardData) {
@@ -122,6 +107,8 @@ const Home = React.createClass({
 
   favoritePressed(checked, cardData) {
 
+    console.log("checked:", checked);
+
     // Toggle checkbox
     checked = !checked;
 
@@ -160,50 +147,71 @@ const Home = React.createClass({
   },
 
   getFavoritesForUser() {
-     AsyncStorage.getItem('currentUser')
-      .then(res => JSON.parse(res))
-      .then(user => {
-        const options = {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        };
-        const ENDPOINT = "http://104.236.71.66:3000/api/favorites/" + user._id;
-        fetch(ENDPOINT, options)
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            let favoritedUsers = data.favorites.map(favorite => favorite.student);
-            this.setState({favorites: favoritedUsers});
-          })
-          .catch(console.error);
-      })
-      .catch(error => console.log("An error occured", error));
+    this.setTimeout(() => {
+      this.getFavoritesForUser();
+      AsyncStorage.getItem('currentUser')
+        .then(res => JSON.parse(res))
+        .then(user => {
+          const options = {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          };
+          const ENDPOINT = "http://104.236.71.66:3000/api/favorites/" + user._id;
+          fetch(ENDPOINT, options)
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              let favoritedUsers = data.favorites.map(favorite => favorite.student);
+              this.setState({favorites: favoritedUsers});
+            })
+            .catch(console.error);
+        })
+        .catch(error => console.log("An error occured", error));
+    }, 600);
+  },
+
+  scanForBeacons() {
+    if (!this.state.refreshing) {
+      this.setState({refreshing: true});
+      BeaconBridge.stopScanningForBeacons();
+      BeaconBridge.startScanningForBeacons();
+      setTimeout(() => {
+        this.setState({refreshing: false});
+        BeaconBridge.stopScanningForBeacons()
+        this.setState({demos: this.state.tempDemoArray});
+      }, 4000);
+    }
   },
 
   render() {
 
-    this.getFavoritesForUser();
-
     return (
-      <View style={styles.container} >
         <ParallaxView
+          style={styles.container}
           backgroundSource={require('../imgs/groupstandard.jpg')}
-          windowHeight={140} >
+          windowHeight={140} 
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.scanForBeacons}
+            />
+          } >
           <View style={styles.demoContainer}>
-            <View style={styles.scrollContainer}>
-              <Text style={styles.mainHeader}>Demos Near Me</Text>
-              {
-                this.state.demos.map((demo, index) => {
-                  const demoId = this.getDemoId(demo);
-                  let isFavorited = this.state.favorites.includes(demoId);
-                  console.log("IS FAVORITED:", isFavorited);
-                  const favicon = demo.faviconUrl;
-                  return (
-                    <Card key={index}>
+            <Text style={styles.mainHeader}>Demos Near Me</Text>
+            <Text style={styles.subHeader}>Pull to refresh list</Text>
+            {
+              this.state.demos.map((demo, index) => {
+                const demoId = this.getDemoId(demo);
+                let isFavorited = this.state.favorites.includes(demoId);
+                console.log("ISFAVORITED:", isFavorited);
+                const favicon = demo.faviconUrl;
+                return (
+                    <Card key={index}
+                      style={styles.card}>
                       <CardItem>
                         <Thumbnail source={{uri: favicon}} />
                         <Text>{demo.title}</Text>
@@ -219,14 +227,11 @@ const Home = React.createClass({
                         <Text>{demo.desc}</Text>
                       </CardItem>
                     </Card>
-                  );
-                })
-
-              }
-            </View>
+                );
+              })
+            }
           </View>
         </ParallaxView>
-      </View>
     );
   }
 });
@@ -235,10 +240,10 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 64
   },
-  demoContainer: {
-    height: 500
+  card: {
+    marginBottom: 15
   },
-  scrollContainer: {
+  demoContainer: {
     paddingHorizontal: 10,
     paddingVertical: 20
   },
@@ -246,6 +251,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#253137',
+    paddingBottom: 7
+  },
+  subHeader: {
+    fontSize: 12,
+    color: '#a8a8a8',
     paddingBottom: 15
   }
 })
