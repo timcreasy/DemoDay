@@ -3,7 +3,8 @@ import {
   Text,
   View,
   StyleSheet,
-  Image
+  Image,
+  AlertIOS
 } from 'react-native';
 import {Button, Container, Content, List, ListItem, InputGroup, Icon, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -33,7 +34,7 @@ const Register = React.createClass({
   registerPressed() {
 
     // ENDPOINT
-    const ENDPOINT = 'http://10.0.0.44:3000/api/users';
+    const ENDPOINT = 'http://104.236.71.66:3000/api/users';
 
     const requestObj = {
       method: 'POST',
@@ -53,8 +54,10 @@ const Register = React.createClass({
     })
     .then((data) => {
       if (data.user) {
-        console.log(data);
-        Actions.login({type: ""});
+        AlertIOS.alert(
+          'Account created!',
+        );
+        Actions.login({type: "reset"});
       } else {
         this.setState({errorMsg: data});
       }

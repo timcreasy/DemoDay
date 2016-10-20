@@ -25,7 +25,8 @@ const Home = React.createClass({
     return({
       demos: [],
       tempDemoArray: [],
-      isFavorited: false
+      isFavorited: false,
+      favorites: []
     });
   },
 
@@ -158,7 +159,35 @@ const Home = React.createClass({
     console.log("Card pressed");
   },
 
+  getFavoritesForUser() {
+     AsyncStorage.getItem('currentUser')
+      .then(res => JSON.parse(res))
+      .then(user => {
+        const options = {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        };
+        const ENDPOINT = "http://104.236.71.66:3000/api/favorites/" + user._id;
+        fetch(ENDPOINT, options)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            let favoritedUsers = data.favorites.map(favorite => favorite.student);
+            this.setState({favorites: favoritedUsers});
+          })
+          .catch(console.error);
+      })
+      .catch(error => console.log("An error occured", error));
+  },
+
   render() {
+
+    this.getFavoritesForUser();
+
     return (
       <View style={styles.container} >
         <ParallaxView
@@ -169,6 +198,9 @@ const Home = React.createClass({
               <Text style={styles.mainHeader}>Demos Near Me</Text>
               {
                 this.state.demos.map((demo, index) => {
+                  const demoId = this.getDemoId(demo);
+                  let isFavorited = this.state.favorites.includes(demoId);
+                  console.log("IS FAVORITED:", isFavorited);
                   const favicon = demo.faviconUrl;
                   return (
                     <Card key={index}>
@@ -177,8 +209,8 @@ const Home = React.createClass({
                         <Text>{demo.title}</Text>
                         <CheckBox
                           size={30}
-                          checked={this.state.isFavorited}
-                          onPress={() => this.favoritePressed(this.state.isFavorited, demo)}
+                          checked={isFavorited}
+                          onPress={() => this.favoritePressed(isFavorited, demo)}
                           uncheckedIconName="star-border"
                           checkedIconName="star"
                         />
@@ -189,6 +221,7 @@ const Home = React.createClass({
                     </Card>
                   );
                 })
+
               }
             </View>
           </View>
