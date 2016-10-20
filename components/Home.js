@@ -61,6 +61,10 @@ const Home = React.createClass({
     }, 4000);
   },
 
+  getDemoId(cardData) {
+    return cardData.scanUrl.split('https://phy.net/')[1].split('?')[0];
+  },
+
   unfavoriteDemo(demo) {
 
     AsyncStorage.getItem('currentUser')
@@ -76,12 +80,12 @@ const Home = React.createClass({
           },
           body: JSON.stringify({
             employer: user._id,
-            student: demo._id
+            student: this.getDemoId(demo),
+            card: demo
           })
         };
         fetch(ENDPOINT, requestObj)
         .then((data) => {
-          console.log("Data:", data);
         })
         .catch(err => console.log(err));
       });
@@ -103,12 +107,12 @@ const Home = React.createClass({
           },
           body: JSON.stringify({
             employer: user._id,
-            student: demo._id
+            student: this.getDemoId(demo),
+            card: demo
           })
         };
         fetch(ENDPOINT, requestObj)
         .then((data) => {
-          console.log("Data:", data);
         })
         .catch(err => console.log(err));
       });
@@ -125,8 +129,6 @@ const Home = React.createClass({
       isFavorited: checked,
     });
 
-    // this.favoriteDemo({_id: "1234567"});
-
     AsyncStorage.getItem('currentUser')
       .then(res => JSON.parse(res))
       .then(data => {
@@ -139,10 +141,10 @@ const Home = React.createClass({
         // Add to favorites if not already added, remove if exists
         if (checked && !obj) {
           data.favorites.push(cardData)
-          this.favoriteDemo({_id: "1234567"});
+          this.favoriteDemo(cardData);
         } else {
           data.favorites = data.favorites.filter(upd => {
-            this.unfavoriteDemo({_id: "1234567"});
+            this.unfavoriteDemo(cardData);
             return upd.scanUrl !== obj.scanUrl;
           });
         }
@@ -157,6 +159,7 @@ const Home = React.createClass({
   },
 
   render() {
+    console.log(this.state.demos);
 
     return (
       <View style={styles.container} >
