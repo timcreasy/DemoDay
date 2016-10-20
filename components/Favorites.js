@@ -89,7 +89,6 @@ const Favorites = React.createClass({
     return (
       <View style={styles.container} >
         <ScrollView>
-          <Text>Favorites</Text>
           {
             this.state.favorites.map((demo, index) => {
               demo = demo.card;

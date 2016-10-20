@@ -71,6 +71,7 @@ const Login = React.createClass({
           style={styles.logo}
           source={require('../imgs/logoooo.png')}
         />
+        
         <InputGroup>
           <Icon name='ios-person' />
           <Input placeholder='Email' onChangeText={this.emailChanged} keyboardType="email-address" autoCapitalize="none"/>

@@ -13,6 +13,7 @@ const Register = React.createClass({
 
   getInitialState() {
     return({
+      name: "",
       email: "",
       password: "",
       errorMsg: "",
@@ -21,6 +22,10 @@ const Register = React.createClass({
 
   emailChanged(input) {
     this.setState({email: input});
+  },
+
+  nameChanged(input) {
+    this.setState({name: input});
   },
 
   passwordChanged(input) {
@@ -43,6 +48,7 @@ const Register = React.createClass({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        name: this.state.name,
         email: this.state.email,
         password: this.state.password
       })
@@ -73,6 +79,11 @@ const Register = React.createClass({
             style={styles.logo}
             source={require('../imgs/logoooo.png')}
           />
+
+        <InputGroup>
+          <Icon name='ios-person' />
+          <Input placeholder='Full Name' onChangeText={this.nameChanged} keyboardType="default" autoCapitalize="words"/>
+        </InputGroup>  
         <InputGroup>
           <Icon name='ios-person' />
           <Input placeholder='Email' onChangeText={this.emailChanged} keyboardType="email-address" autoCapitalize="none"/>
