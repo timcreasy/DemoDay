@@ -159,8 +159,6 @@ const Home = React.createClass({
   },
 
   render() {
-    console.log(this.state.demos);
-
     return (
       <View style={styles.container} >
         <ParallaxView

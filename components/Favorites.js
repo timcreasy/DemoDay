@@ -19,27 +19,69 @@ const Favorites = React.createClass({
 
     AsyncStorage.getItem('currentUser')
       .then(res => JSON.parse(res))
-      .then(data => {
-        if (data.favorites) {
-          this.setState({favorites: data.favorites});
-        }
+      .then(user => {
+        
+        const options = {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        };
+
+        const ENDPOINT = "http://104.236.71.66:3000/api/favorites/" + user._id;
+
+        fetch(ENDPOINT, options)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            this.setState({favorites: data.favorites});
+          })
+          .catch(console.error);
+
+
       })
       .catch(error => console.log("An error occured", error));
 
   },
 
-  favoritePressed(cardData) {
-    
+  getDemoId(cardData) {
+    return cardData.scanUrl.split('https://phy.net/')[1].split('?')[0];
+  },
+
+  unfavoritePressed(cardData) {
     AsyncStorage.getItem('currentUser')
       .then(res => JSON.parse(res))
-      .then(data => {
-        data.favorites = data.favorites.filter(upd => {
-          return upd.scanUrl !== cardData.scanUrl;
-        });
-        this.setState({favorites: data.favorites});
-        return AsyncStorage.mergeItem('currentUser', JSON.stringify(data));
-      })
-      .catch(error => console.log('Error!'));
+      .then(user => {
+        // ENDPOINT
+        const ENDPOINT = 'http://104.236.71.66:3000/api/favorites';
+        const requestObj = {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            employer: user._id,
+            student: this.getDemoId(cardData),
+            card: cardData
+          })
+        };
+        fetch(ENDPOINT, requestObj)
+        .then(() => {
+          const UPDATEDLIST = "http://104.236.71.66:3000/api/favorites/" + user._id;
+          fetch(UPDATEDLIST)
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              this.setState({favorites: data.favorites});
+            })
+            .catch(console.error);
+        })
+        .catch(err => console.log(err));
+      });
 
   },
 
@@ -50,6 +92,7 @@ const Favorites = React.createClass({
           <Text>Favorites</Text>
           {
             this.state.favorites.map((demo, index) => {
+              demo = demo.card;
               const favicon = demo.faviconUrl;
               return (
                 <Card key={index}>
@@ -59,7 +102,7 @@ const Favorites = React.createClass({
                     <CheckBox
                       size={30}
                       checked={true}
-                      onPress={() => this.favoritePressed(demo)}
+                      onPress={() => this.unfavoritePressed(demo)}
                       uncheckedIconName="star-border"
                       checkedIconName="star" />
                   </CardItem>
