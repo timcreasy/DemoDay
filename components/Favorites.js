@@ -94,7 +94,8 @@ const Favorites = React.createClass({
               demo = demo.card;
               const favicon = demo.faviconUrl;
               return (
-                <Card key={index}>
+                <Card key={index}
+                  style={styles.card}>
                   <CardItem>
                     <Thumbnail source={{uri: favicon}} />
                     <Text>{demo.title}</Text>
@@ -112,6 +113,336 @@ const Favorites = React.createClass({
               );
             })
           }
+
+
+
+
+
+
+
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          {
+            this.state.favorites.map((demo, index) => {
+              demo = demo.card;
+              const favicon = demo.faviconUrl;
+              return (
+                <Card key={index}
+                  style={styles.card}>
+                  <CardItem>
+                    <Thumbnail source={{uri: favicon}} />
+                    <Text>{demo.title}</Text>
+                    <CheckBox
+                      size={30}
+                      checked={true}
+                      onPress={() => this.unfavoritePressed(demo)}
+                      uncheckedIconName="star-border"
+                      checkedIconName="star" />
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Text>{demo.desc}</Text>
+                  </CardItem>
+                </Card>
+              );
+            })
+          }
+          
+
+
+
+
+
+
+
+
+
+
         </ScrollView>
       </View>
     );
@@ -120,7 +451,13 @@ const Favorites = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 64
+    paddingTop: 70,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    flex: 1
+  },
+  card: {
+    marginBottom: 15
   }
 })
 

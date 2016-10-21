@@ -14,6 +14,7 @@ const Register = React.createClass({
   getInitialState() {
     return({
       name: "",
+      company: "",
       email: "",
       password: "",
       errorMsg: "",
@@ -22,6 +23,10 @@ const Register = React.createClass({
 
   emailChanged(input) {
     this.setState({email: input});
+  },
+
+  companyChanged(input) {
+    this.setState({company: input});
   },
 
   nameChanged(input) {
@@ -49,6 +54,7 @@ const Register = React.createClass({
       },
       body: JSON.stringify({
         name: this.state.name,
+        company: this.state.company,
         email: this.state.email,
         password: this.state.password
       })
@@ -83,7 +89,11 @@ const Register = React.createClass({
         <InputGroup>
           <Icon name='ios-person' />
           <Input placeholder='Full Name' onChangeText={this.nameChanged} keyboardType="default" autoCapitalize="words"/>
-        </InputGroup>  
+        </InputGroup>
+        <InputGroup>
+          <Icon name='ios-briefcase' style={{fontSize: 20}}/>
+          <Input placeholder='Company' onChangeText={this.companyChanged} keyboardType="default" autoCapitalize="words"/>
+        </InputGroup>    
         <InputGroup>
           <Icon name='ios-person' />
           <Input placeholder='Email' onChangeText={this.emailChanged} keyboardType="email-address" autoCapitalize="none"/>
