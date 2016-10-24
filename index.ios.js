@@ -10,6 +10,7 @@ import Home from './components/Home';
 import Favorites from './components/Favorites';
 import Login from './components/Login';
 import Register from './components/Register';
+import emitter from './events';
 
 const DemoDay = React.createClass({
 
@@ -22,17 +23,18 @@ const DemoDay = React.createClass({
     Actions.favorites();
   },
 
-  registerPressed() {
-    Actions.register();
+  logoutPressed() {
+    emitter.emit('logout');
+    Actions.login({type: "reset"});
   },
 
   render() {
     return (
       <Router>
         <Scene key="root">
-          <Scene key="login" component={Login} title="Login" initial={true} onRight={this.registerPressed} rightTitle="Register" />
+          <Scene key="login" component={Login} initial={true} hideNavBar={true}/>
           <Scene key="register" component={Register} title="Register" />
-          <Scene key="home" component={Home} title="Cohort 14" onRight={this.favoritesPressed} rightTitle="Favorites"/>
+          <Scene key="home" component={Home} title="Cohort 14" onRight={this.favoritesPressed} rightTitle="Favorites" leftTitle="Logout" onLeft={this.logoutPressed}/>
           <Scene key="favorites" component={Favorites} title="Favorites" onBack={this.goHome}/>
         </Scene>
       </Router>

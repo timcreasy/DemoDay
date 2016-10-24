@@ -3,6 +3,7 @@ import {
   Text,
   View,
   StyleSheet,
+  Image,
   AsyncStorage
 } from 'react-native';
 import {Button, Container, Content, List, ListItem, InputGroup, Icon, Input } from 'native-base';
@@ -24,6 +25,10 @@ const Login = React.createClass({
 
   passwordChanged(input) {
     this.setState({password: input});
+  },
+
+  registerPressed() {
+    Actions.register();
   },
 
   loginPressed() {
@@ -62,9 +67,14 @@ const Login = React.createClass({
   render() {
     return (
       <View style={styles.container} >
+        <Image
+          style={styles.logo}
+          source={require('../imgs/logoooo.png')}
+        />
+        
         <InputGroup>
           <Icon name='ios-person' />
-          <Input placeholder='Email' onChangeText={this.emailChanged} />
+          <Input placeholder='Email' onChangeText={this.emailChanged} keyboardType="email-address" autoCapitalize="none"/>
         </InputGroup>
 
         <InputGroup>
@@ -83,7 +93,6 @@ const Login = React.createClass({
           })()}
         </View>
         {(() => {
-          console.log("f");
             if (this.state.errorMsg) {
               <View style={styles.errorContainer}>
                 <Text>{this.state.errorMsg}</Text>
@@ -94,6 +103,7 @@ const Login = React.createClass({
         <View style={styles.buttonContainer}>
           <Button block success onPress={this.loginPressed}>Login</Button>
         </View>
+        <Text onPress={this.registerPressed}>Don't have an account?</Text>
       </View>
     );
   }
@@ -101,7 +111,20 @@ const Login = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 64,
+    paddingTop: 15,
+    paddingLeft: 5,
+    paddingRight: 5,
+    alignItems: 'center'
+  },
+  logo: {
+    width: 150, 
+    height: 150
+  },  
+  headerContainer: {
+    alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 20,
   },
   errorContainer: {
     padding: 20,
@@ -109,6 +132,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingTop: 8,
+    paddingBottom: 8,
     paddingRight: 20,
     paddingLeft: 20
   }

@@ -2,7 +2,9 @@ import React from 'react';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  Image,
+  AlertIOS
 } from 'react-native';
 import {Button, Container, Content, List, ListItem, InputGroup, Icon, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -11,6 +13,8 @@ const Register = React.createClass({
 
   getInitialState() {
     return({
+      name: "",
+      company: "",
       email: "",
       password: "",
       errorMsg: "",
@@ -21,14 +25,26 @@ const Register = React.createClass({
     this.setState({email: input});
   },
 
+  companyChanged(input) {
+    this.setState({company: input});
+  },
+
+  nameChanged(input) {
+    this.setState({name: input});
+  },
+
   passwordChanged(input) {
     this.setState({password: input});
+  },
+
+  loginPressed() {
+    Actions.pop();
   },
 
   registerPressed() {
 
     // ENDPOINT
-    const ENDPOINT = 'http://10.0.0.44:3000/api/users';
+    const ENDPOINT = 'http://104.236.71.66:3000/api/users';
 
     const requestObj = {
       method: 'POST',
@@ -37,6 +53,8 @@ const Register = React.createClass({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        name: this.state.name,
+        company: this.state.company,
         email: this.state.email,
         password: this.state.password
       })
@@ -48,7 +66,9 @@ const Register = React.createClass({
     })
     .then((data) => {
       if (data.user) {
-        console.log(data);
+        AlertIOS.alert(
+          'Account created!',
+        );
         Actions.login({type: "reset"});
       } else {
         this.setState({errorMsg: data});
@@ -61,9 +81,22 @@ const Register = React.createClass({
   render() {
     return (
       <View style={styles.container} >
+        <Image
+            style={styles.logo}
+            source={require('../imgs/logoooo.png')}
+          />
+
         <InputGroup>
           <Icon name='ios-person' />
-          <Input placeholder='Email' onChangeText={this.emailChanged} />
+          <Input placeholder='Full Name' onChangeText={this.nameChanged} keyboardType="default" autoCapitalize="words"/>
+        </InputGroup>
+        <InputGroup>
+          <Icon name='ios-briefcase' style={{fontSize: 20}}/>
+          <Input placeholder='Company' onChangeText={this.companyChanged} keyboardType="default" autoCapitalize="words"/>
+        </InputGroup>    
+        <InputGroup>
+          <Icon name='ios-person' />
+          <Input placeholder='Email' onChangeText={this.emailChanged} keyboardType="email-address" autoCapitalize="none"/>
         </InputGroup>
 
         <InputGroup>
@@ -92,6 +125,7 @@ const Register = React.createClass({
         <View style={styles.buttonContainer}>
           <Button block success onPress={this.registerPressed}>Register</Button>
         </View>
+        <Text onPress={this.loginPressed}>Have an account? Log in</Text>
       </View>
     );
   }
@@ -99,7 +133,12 @@ const Register = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 64,
+    paddingTop: 15,
+    alignItems: 'center'
+  },
+  logo: {
+    width: 150, 
+    height: 150
   },
   errorContainer: {
     padding: 20,
@@ -107,6 +146,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingTop: 8,
+    paddingBottom: 8,
     paddingRight: 20,
     paddingLeft: 20
   }
