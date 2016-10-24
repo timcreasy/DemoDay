@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Image,
   AsyncStorage,
-  RefreshControl
+  RefreshControl,
+  Linking
 } from 'react-native';
 import ParallaxView from 'react-native-parallax-view';
 import { NativeModules } from 'react-native';
@@ -143,7 +144,8 @@ const Home = React.createClass({
   },
 
   goToFavorites() {
-    console.log("Card pressed");
+    // console.log("Card pressed");
+    Linking.openURL("http://timcreasy.com").catch(err => console.error('An error occurred', err));
   },
 
   getFavoritesForUser() {
