@@ -28,7 +28,8 @@ const Home = React.createClass({
       demos: [],
       tempDemoArray: [],
       favorites: [],
-      refreshing: false
+      refreshing: false,
+      isDemo: false
     });
   },
 
@@ -41,6 +42,13 @@ const Home = React.createClass({
     emitter.addListener('logout', () => {
       BeaconBridge.stopScanningForBeacons();
     });
+    AsyncStorage.getItem('currentUser')
+      .then(res => JSON.parse(res))
+      .then(user => {
+        if (user.email === "test@test.com") {
+          this.setState({isDemo: true});
+        }
+      });
   },
 
   componentWillUnmount() {
@@ -179,9 +187,77 @@ const Home = React.createClass({
       this.setTimeout(() => {
         this.setState({refreshing: false});
         BeaconBridge.stopScanningForBeacons()
-        this.setState({demos: this.state.tempDemoArray});
+        if (this.state.isDemo) {
+          this.setState({demos: this.demoData()});
+        } else {
+          this.setState({demos: this.state.tempDemoArray});
+        }
       }, 4000);
     }
+  },
+
+  demoData() {
+    return [{
+      "jsonLd": null,
+      "rssi": -62,
+      "txPowerLevel": -39,
+      "hasMetadata": null,
+      "title": "Tyler Daniel",
+      "destinationUrl": "https://phy.net/mm/580e70d91434c20100c7c780?utm_source=1155&utm_medium=WMJj…3CA9%26phy_language%3Den-US%26phy_web_range%3D0&utm_campaign=1477363288738",
+      "scanUrl": "https://phy.net/WMJjiK?rOW000",
+      "desc": "Things I enjoy: sports (I play in a wood bat baseball league and a weekly basketball league), movies/tv (only good tv, though!), technology, food, traveling, video games, power lifting, food, beer, learning things on Youtube, and food.",
+      "faviconUrl": "https://url-caster.appspot.com/favicon?url=https%3A%2F%2Fphy-static-1.s3.am…accounts%2F1155%2Fmeta-messages%2F89e07fb0-ae87-4bee-9fa6-4372de5138b5.png"
+    }, {
+      "jsonLd": null,
+      "rssi": -65,
+      "txPowerLevel": -39,
+      "hasMetadata": null,
+      "title": "Jack Mocherman",
+      "destinationUrl": "https://phy.net/mm/580e70901434c20100c7c754?utm_source=1155&utm_medium=nuM4…3CA9%26phy_language%3Den-US%26phy_web_range%3D0&utm_campaign=1477363703720",
+      "scanUrl": "https://phy.net/nuM44w?v9oEvO",
+      "desc": "I am within 5 feet of music, books, code, coffee, or some combination of the four at any given time!",
+      "faviconUrl": "https://url-caster.appspot.com/favicon?url=https%3A%2F%2Fphy-static-1.s3.am…accounts%2F1155%2Fmeta-messages%2Fe7d8cf4c-42a0-4e0d-83c0-42587df2922a.png"
+    }, {
+      "jsonLd": null,
+      "rssi": -64,
+      "txPowerLevel": -39,
+      "hasMetadata": null,
+      "title": "Mike Meadowss",
+      "destinationUrl": "https://phy.net/mm/580e6f331434c20100c7c6ce?utm_source=1155&utm_medium=tNVN…3CA9%26phy_language%3Den-US%26phy_web_range%3D0&utm_campaign=1477363435748",
+      "scanUrl": "https://phy.net/tNVNht?vGeFgM",
+      "desc": "Mike is a former scientist looking to convert his passion for logic into programming. Also, he is a big fan of talking about himself in third person.",
+      "faviconUrl": "https://url-caster.appspot.com/favicon?url=https%3A%2F%2Fphy-static-1.s3.am…accounts%2F1155%2Fmeta-messages%2Fa0666161-437f-42b5-8b44-5eeefa2787c9.png"
+    }, {
+      "jsonLd": null,
+      "rssi": -71,
+      "txPowerLevel": -31,
+      "hasMetadata": null,
+      "title": "Tim Creasyy",
+      "destinationUrl": "https://phy.net/mm/580ec2961434c20100c7ccbf?utm_source=1155&utm_medium=iiv4…3CA9%26phy_language%3Den-US%26phy_web_range%3D2&utm_campaign=1477362326000",
+      "scanUrl": "http://phy.net/iiv4N7?kh2gQv",
+      "desc": "Tim Creasy, originally from North Carolina, has always had a passion for technology, being self taught in C and Objective-C. Tim is constantly driven by the fact that the only limit to the software he writes is himself.",
+      "faviconUrl": "https://url-caster.appspot.com/favicon?url=https%3A%2F%2Fphy-static-1.s3.am…accounts%2F1155%2Fmeta-messages%2Fca5fb1f5-0cb2-4370-9151-55ff2de73038.png"
+    }, {
+      "jsonLd": null,
+      "rssi": -69,
+      "txPowerLevel": -31,
+      "hasMetadata": null,
+      "title": "Dominic Serranoo",
+      "destinationUrl": "https://phy.net/mm/580e637f1434c20100c7c5cd?utm_source=1155&utm_medium=n4EL…3CA9%26phy_language%3Den-US%26phy_web_range%3D0&utm_campaign=1477364357176",
+      "scanUrl": "https://phy.net/n4ELhz?ndd!SI",
+      "desc": "When I am not programming or learning more about my current project, I enjoy playing ping-pong, soccer, and sampling craft beers.",
+      "faviconUrl": "https://url-caster.appspot.com/favicon?url=https%3A%2F%2Fphy-static-1.s3.am…accounts%2F1155%2Fmeta-messages%2F3d93a5cc-6648-421a-9729-6dd2bbd15b38.png"
+    }, {
+      "jsonLd": null,
+      "rssi": -64,
+      "txPowerLevel": -16,
+      "hasMetadata": null,
+      "title": "Chris Hill",
+      "destinationUrl": "https://phy.net/mm/580ec4111434c20100c7cce9?utm_source=1155&utm_medium=DF4h…3CA9%26phy_language%3Den-US%26phy_web_range%3D0&utm_campaign=1477363184313",
+      "scanUrl": "http://phy.net/DF4haB?dNiLP9",
+      "desc": "I've been a carpenter, an artist, and an electrician. I am a father and a husband. I love programming, because it allows me to create and learn continuously.",
+      "faviconUrl": "https://url-caster.appspot.com/favicon?url=https%3A%2F%2Fphy-static-1.s3.am…accounts%2F1155%2Fmeta-messages%2F59bc4a40-d47b-45e6-8f0c-259937a8c2ae.png"
+    }];
   },
 
   render() {
