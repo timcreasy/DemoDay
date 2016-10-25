@@ -993,8 +993,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.twc3.DemoDay;
 				PRODUCT_NAME = DemoDay;
-				PROVISIONING_PROFILE = "5c92905c-0426-4833-a98b-fbbd8dd96e81";
-				PROVISIONING_PROFILE_SPECIFIER = DemoDayAppStore;
+				PROVISIONING_PROFILE = "5ae15194-5ce0-4031-bcf8-e0ac06ff30fb";
+				PROVISIONING_PROFILE_SPECIFIER = DemoDayProfileDev;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
