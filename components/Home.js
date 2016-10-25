@@ -27,7 +27,6 @@ const Home = React.createClass({
     return({
       demos: [],
       tempDemoArray: [],
-      isFavorited: false,
       favorites: [],
       refreshing: false
     });
@@ -44,17 +43,14 @@ const Home = React.createClass({
     });
   },
 
-
-
   componentWillUnmount() {
     BeaconBridge.stopScanningForBeacons();
   },
 
   getDemoId(cardData) {
-    console.log(`${cardData.rssi} - ${cardData.scanUrl} - ${cardData.title}`);
     if (cardData.scanUrl.split('://')[0] === 'https'){
       return cardData.scanUrl.split('https://phy.net/')[1].split('?')[0];
-    } else if (cardData.scanUrl.split('://')[0] === 'https') {
+    } else if (cardData.scanUrl.split('://')[0] === 'http') {
       return cardData.scanUrl.split('http://phy.net/')[1].split('?')[0];
     }
   },
@@ -115,15 +111,7 @@ const Home = React.createClass({
 
   favoritePressed(checked, cardData) {
 
-    console.log("checked:", checked);
-
-    // Toggle checkbox
     checked = !checked;
-
-    // Toggle isFavorited
-    this.setState({
-      isFavorited: checked,
-    });
 
     AsyncStorage.getItem('currentUser')
       .then(res => JSON.parse(res))
@@ -134,15 +122,16 @@ const Home = React.createClass({
         const obj = data.favorites.filter(obj => {
             return obj.scanUrl === cardData.scanUrl;
         })[0];
+
         // Add to favorites if not already added, remove if exists
         if (checked && !obj) {
-          data.favorites.push(cardData)
+          data.favorites.push(cardData);
           this.favoriteDemo(cardData);
         } else {
           data.favorites = data.favorites.filter(upd => {
-            this.unfavoriteDemo(cardData);
             return upd.scanUrl !== obj.scanUrl;
           });
+          this.unfavoriteDemo(cardData);
         }
         return AsyncStorage.mergeItem('currentUser', JSON.stringify(data));
       })

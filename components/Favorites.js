@@ -48,7 +48,11 @@ const Favorites = React.createClass({
   },
 
   getDemoId(cardData) {
-    return cardData.scanUrl.split('https://phy.net/')[1].split('?')[0];
+    if (cardData.scanUrl.split('://')[0] === 'https'){
+      return cardData.scanUrl.split('https://phy.net/')[1].split('?')[0];
+    } else if (cardData.scanUrl.split('://')[0] === 'http') {
+      return cardData.scanUrl.split('http://phy.net/')[1].split('?')[0];
+    }
   },
 
   unfavoritePressed(cardData) {
@@ -99,22 +103,24 @@ const Favorites = React.createClass({
               demo = demo.card;
               const favicon = demo.faviconUrl;
               return (
-                <Card key={index}
-                  style={styles.card}>
-                  <CardItem>
-                    <Thumbnail source={{uri: favicon}} />
-                    <Text>{demo.title}</Text>
-                    <CheckBox
-                      size={30}
-                      checked={true}
-                      onPress={() => this.unfavoritePressed(demo)}
-                      uncheckedIconName="star-border"
-                      checkedIconName="star" />
-                  </CardItem>
-                  <CardItem cardBody button onPress={() => this.goToHomepage(demo)}>
-                    <Text>{demo.desc}</Text>
-                  </CardItem>
-                </Card>
+                <View key={index}>
+                  <Card
+                    style={styles.card}>
+                    <CardItem>
+                      <Thumbnail source={{uri: favicon}} />
+                      <Text>{demo.title}</Text>
+                      <CheckBox
+                        size={30}
+                        checked={true}
+                        onPress={() => this.unfavoritePressed(demo)}
+                        uncheckedIconName="star-border"
+                        checkedIconName="star" />
+                    </CardItem>
+                    <CardItem cardBody button onPress={() => this.goToHomepage(demo)}>
+                      <Text>{demo.desc}</Text>
+                    </CardItem>
+                  </Card>
+                </View>
               );
             })
           }
