@@ -44,12 +44,19 @@ const Home = React.createClass({
     });
   },
 
+
+
   componentWillUnmount() {
     BeaconBridge.stopScanningForBeacons();
   },
 
   getDemoId(cardData) {
-    return cardData.scanUrl.split('https://phy.net/')[1].split('?')[0];
+    console.log(`${cardData.rssi} - ${cardData.scanUrl} - ${cardData.title}`);
+    if (cardData.scanUrl.split('://')[0] === 'https'){
+      return cardData.scanUrl.split('https://phy.net/')[1].split('?')[0];
+    } else if (cardData.scanUrl.split('://')[0] === 'https') {
+      return cardData.scanUrl.split('http://phy.net/')[1].split('?')[0];
+    }
   },
 
   unfavoriteDemo(demo) {
@@ -143,9 +150,8 @@ const Home = React.createClass({
 
   },
 
-  goToFavorites() {
-    // console.log("Card pressed");
-    Linking.openURL("http://timcreasy.com").catch(err => console.error('An error occurred', err));
+  goToHomepage(demo) {
+    Linking.openURL(demo.destinationUrl).catch(err => console.error('An error occurred', err));
   },
 
   getFavoritesForUser() {
@@ -207,29 +213,31 @@ const Home = React.createClass({
             <Text style={styles.subHeader}>Pull to refresh list</Text>
             {
               this.state.demos.map((demo, index) => {
-                const demoId = this.getDemoId(demo);
-                let isFavorited = this.state.favorites.includes(demoId);
-                console.log("ISFAVORITED:", isFavorited);
-                const favicon = demo.faviconUrl;
-                return (
-                    <Card key={index}
-                      style={styles.card}>
-                      <CardItem>
-                        <Thumbnail source={{uri: favicon}} />
-                        <Text>{demo.title}</Text>
-                        <CheckBox
-                          size={30}
-                          checked={isFavorited}
-                          onPress={() => this.favoritePressed(isFavorited, demo)}
-                          uncheckedIconName="star-border"
-                          checkedIconName="star"
-                        />
-                      </CardItem>
-                      <CardItem cardBody button onPress={this.goToFavorites}>
-                        <Text>{demo.desc}</Text>
-                      </CardItem>
-                    </Card>
-                );
+                // if (demo.rssi > -59) {
+                  const demoId = this.getDemoId(demo);
+                  let isFavorited = this.state.favorites.includes(demoId);
+                  const favicon = demo.faviconUrl;
+                  return (
+                    <View key={index}>
+                      <Card style={styles.card}>
+                        <CardItem>
+                          <Thumbnail source={{uri: favicon}} />
+                          <Text>{demo.title}</Text>
+                          <CheckBox
+                            size={30}
+                            checked={isFavorited}
+                            onPress={() => this.favoritePressed(isFavorited, demo)}
+                            uncheckedIconName="star-border"
+                            checkedIconName="star"
+                          />
+                        </CardItem>
+                        <CardItem cardBody button onPress={() => this.goToHomepage(demo)}>
+                          <Text>{demo.desc}</Text>
+                        </CardItem>
+                      </Card>
+                      </View>
+                  );
+                // }
               })
             }
           </View>

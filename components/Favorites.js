@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
   AsyncStorage,
-  ScrollView
+  ScrollView,
+  Linking
 } from 'react-native';
 import {Card, CardItem, Thumbnail } from 'native-base';
 import CheckBox from 'react-native-icon-checkbox';
@@ -85,6 +86,10 @@ const Favorites = React.createClass({
 
   },
 
+  goToHomepage(demo) {
+    Linking.openURL(demo.destinationUrl).catch(err => console.error('An error occurred', err));
+  },
+
   render() {
     return (
       <View style={styles.container} >
@@ -106,7 +111,7 @@ const Favorites = React.createClass({
                       uncheckedIconName="star-border"
                       checkedIconName="star" />
                   </CardItem>
-                  <CardItem cardBody>
+                  <CardItem cardBody button onPress={() => this.goToHomepage(demo)}>
                     <Text>{demo.desc}</Text>
                   </CardItem>
                 </Card>
