@@ -47,6 +47,7 @@ const Home = React.createClass({
       .then(user => {
         if (user.email === "test@test.com") {
           this.setState({isDemo: true});
+          this.setState({demos: this.demoData()});
         }
       });
   },
@@ -282,7 +283,6 @@ const Home = React.createClass({
                   const demoId = this.getDemoId(demo);
                   let isFavorited = this.state.favorites.includes(demoId);
                   const favicon = demo.faviconUrl;
-                  console.log(favicon);                  
                   return (
                     <View key={index}>
                       <Card style={styles.card}>
