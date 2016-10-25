@@ -11,6 +11,15 @@ import { Actions } from 'react-native-router-flux';
 
 const Login = React.createClass({
 
+  componentWillMount() {
+    AsyncStorage.getItem('currentUser')
+      .then(user => {
+        if (user) {
+          Actions.home({type: "reset"});
+        }
+      });
+  },
+
   getInitialState() {
     return({
       email: "",

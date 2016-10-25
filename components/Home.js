@@ -176,7 +176,7 @@ const Home = React.createClass({
       this.setState({refreshing: true});
       BeaconBridge.stopScanningForBeacons();
       BeaconBridge.startScanningForBeacons();
-      setTimeout(() => {
+      this.setTimeout(() => {
         this.setState({refreshing: false});
         BeaconBridge.stopScanningForBeacons()
         this.setState({demos: this.state.tempDemoArray});

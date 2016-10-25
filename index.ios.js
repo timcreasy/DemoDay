@@ -3,7 +3,8 @@ import {
   AppRegistry,
   StyleSheet,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 import {Scene, Router, Actions} from 'react-native-router-flux';
 import Home from './components/Home';
@@ -25,7 +26,10 @@ const DemoDay = React.createClass({
 
   logoutPressed() {
     emitter.emit('logout');
-    Actions.login({type: "reset"});
+    AsyncStorage.removeItem('currentUser')
+      .then(() => {
+        Actions.login({type: "reset"});
+      });
   },
 
   render() {
