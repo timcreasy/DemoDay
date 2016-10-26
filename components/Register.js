@@ -106,20 +106,20 @@ const Register = React.createClass({
 
         <InputGroup>
           <Icon name='ios-person' />
-          <Input placeholder='Full Name' onChangeText={this.nameChanged} keyboardType="default" autoCapitalize="words"/>
+          <Input placeholder='Full Name' onChangeText={this.nameChanged} keyboardType="default" autoCapitalize="words" autoCorrect={false}/>
         </InputGroup>
         <InputGroup>
           <Icon name='ios-briefcase' style={{fontSize: 20}}/>
-          <Input placeholder='Company' onChangeText={this.companyChanged} keyboardType="default" autoCapitalize="words"/>
+          <Input placeholder='Company' onChangeText={this.companyChanged} keyboardType="default" autoCapitalize="words" autoCorrect={false}/>
         </InputGroup>    
         <InputGroup>
           <Icon name='ios-person' />
-          <Input placeholder='Email' onChangeText={this.emailChanged} keyboardType="email-address" autoCapitalize="none"/>
+          <Input placeholder='Email' onChangeText={this.emailChanged} keyboardType="email-address" autoCapitalize="none" autoCorrect={false}/>
         </InputGroup>
 
         <InputGroup>
           <Icon name='ios-unlock' />
-          <Input placeholder='Password' onChangeText={this.passwordChanged} secureTextEntry={true}/>
+          <Input placeholder='Password' onChangeText={this.passwordChanged} secureTextEntry={true} autoCorrect={false}/>
         </InputGroup>
         <View>
           {(() => {
