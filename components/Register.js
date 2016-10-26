@@ -43,38 +43,56 @@ const Register = React.createClass({
 
   registerPressed() {
 
-    // ENDPOINT
-    const ENDPOINT = 'http://104.236.71.66:3000/api/users';
+    if (!this.state.email || !this.state.password || !this.state.name) {
 
-    const requestObj = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        company: this.state.company,
-        email: this.state.email,
-        password: this.state.password
-      })
-    };
-
-    fetch(ENDPOINT, requestObj)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      if (data.user) {
-        AlertIOS.alert(
-          'Account created!',
-        );
-        Actions.login({type: "reset"});
-      } else {
-        this.setState({errorMsg: data});
+      if (!this.state.email) {
+        AlertIOS.alert('An email is required');
       }
-    })
-    .catch(err => console.log(err));
+      
+      if (!this.state.password) {
+        AlertIOS.alert('A password is required');
+      } 
+      
+      if (!this.state.name) {
+        AlertIOS.alert('Please enter your name');
+      }
+
+    } else {
+
+      // ENDPOINT
+      const ENDPOINT = 'http://104.236.71.66:3000/api/users';
+
+      const requestObj = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: this.state.name,
+          company: this.state.company,
+          email: this.state.email,
+          password: this.state.password
+        })
+      };
+
+      fetch(ENDPOINT, requestObj)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.user) {
+          AlertIOS.alert(
+            'Account created!',
+          );
+          Actions.login({type: "reset"});
+        } else {
+          this.setState({errorMsg: data});
+        }
+      })
+      .catch(err => console.log(err));
+
+    }
 
   },
 

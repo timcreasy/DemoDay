@@ -4,7 +4,8 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  AlertIOS
 } from 'react-native';
 import {Scene, Router, Actions} from 'react-native-router-flux';
 import Home from './components/Home';
@@ -24,12 +25,25 @@ const DemoDay = React.createClass({
     Actions.favorites();
   },
 
-  logoutPressed() {
+  logout() {
     emitter.emit('logout');
     AsyncStorage.removeItem('currentUser')
       .then(() => {
         Actions.login({type: "reset"});
-      });
+    });
+  },
+
+  logoutPressed() {
+
+    AlertIOS.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {text: 'Logout', onPress: () => this.logout(), style: 'destructive'},
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
+      ],
+    );
+
   },
 
   render() {
