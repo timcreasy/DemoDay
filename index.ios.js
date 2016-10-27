@@ -15,7 +15,7 @@ import Register from './components/Register';
 import emitter from './events';
 
 const DemoDay = React.createClass({
-
+  
   goHome() {
     Actions.refresh();
     Actions.pop();
