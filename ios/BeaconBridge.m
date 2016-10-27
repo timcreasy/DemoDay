@@ -34,6 +34,7 @@ RCT_EXPORT_METHOD(stopScanningForBeacons)
   {
     PHYEddystoneBeacon *beacon = beacons[i];
     id null = [NSNull null];
+    NSNumber *distanceNumber = [NSNumber numberWithDouble:beacon.distance];
     NSDictionary *dict =  [NSDictionary dictionaryWithObjectsAndKeys:
                            (beacon.scanUrl ?: null),@"scanUrl",
                            (beacon.txPowerLevel ?: null),@"txPowerLevel",
@@ -44,6 +45,7 @@ RCT_EXPORT_METHOD(stopScanningForBeacons)
                            (beacon.faviconUrl ?: null),@"faviconUrl",
                            (beacon.desc ?: null),@"desc",
                            (beacon.jsonLd ?: null),@"jsonLd",
+                           (distanceNumber),@"distance",
                            nil];
     [beaconsArray addObject:dict];
   }

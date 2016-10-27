@@ -279,7 +279,6 @@ const Home = React.createClass({
             <Text style={styles.subHeader}>Pull to refresh list</Text>
             {
               this.state.demos.map((demo, index) => {
-                // if (demo.rssi > -59) {
                   const demoId = this.getDemoId(demo);
                   let isFavorited = this.state.favorites.includes(demoId);
                   const favicon = demo.faviconUrl;
@@ -301,9 +300,8 @@ const Home = React.createClass({
                           <Text>{demo.desc}</Text>
                         </CardItem>
                       </Card>
-                      </View>
+                    </View>
                   );
-                // }
               })
             }
           </View>
