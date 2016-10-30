@@ -33,19 +33,26 @@ const Home = React.createClass({
       isDemo: false,
       noDemos: [
         {
-          "title": "Check back on November 4th",
+          "title": "Welcome",
           "destinationUrl": "https://nss-day-cohort-14.github.io/",
           "scanUrl": "https://nss-day-cohort-14.github.io/",
-          "desc": "Check back on November 4th! Remember to keep the My Demo Day application open during demo day to view more information about students, and favorite them.",
+          "desc": "Welcome to the My Demo Day application. This application will be used to facilitate networking during Nashville Software School's Demo Day. Attendees of Demo Day can use this application throughout to view more information about students nearby, and favorite them.  Favorited students will have access to your basic information: your name, company and email.",
           "faviconUrl": "https://raw.githubusercontent.com/nss-day-cohort-14/nss-day-cohort-14.github.io/master/img/logo.png"
         },
         {
-          "title": "Class Website",
+          "title": "Learn more",
           "destinationUrl": "https://nss-day-cohort-14.github.io/",
           "scanUrl": "https://nss-day-cohort-14.github.io/",
-          "desc": "View more information about the students of NSS Cohort 14.",
+          "desc": "Make sure to keep your device handy during Demo Day.  As you walk around, you can continuously pull-to-refresh, to update the list of the closest students near you.  You can click on each 'card' to link to that student's personal website.  Also, if interested in a student as a possible employee, mentee or just to connect, remember to favorite them by pressing the star in the top right of their card. Favorites can be accessed in the top-right of the application.",
           "faviconUrl": "https://raw.githubusercontent.com/nss-day-cohort-14/nss-day-cohort-14.github.io/master/img/logo.png"
-        }
+        },
+        {
+          "title": "Cohort 14",
+          "destinationUrl": "https://nss-day-cohort-14.github.io/",
+          "scanUrl": "https://nss-day-cohort-14.github.io/",
+          "desc": "Click here to view more information about the students of NSS Cohort 14",
+          "faviconUrl": "https://raw.githubusercontent.com/nss-day-cohort-14/nss-day-cohort-14.github.io/master/img/logo.png"
+        },
       ]
     });
   },
