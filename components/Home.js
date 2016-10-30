@@ -6,7 +6,8 @@ import {
   Image,
   AsyncStorage,
   RefreshControl,
-  Linking
+  Linking,
+  TouchableOpacity
 } from 'react-native';
 import ParallaxView from 'react-native-parallax-view';
 import { NativeModules } from 'react-native';
@@ -29,7 +30,23 @@ const Home = React.createClass({
       tempDemoArray: [],
       favorites: [],
       refreshing: false,
-      isDemo: false
+      isDemo: false,
+      noDemos: [
+        {
+          "title": "Check back on November 4th",
+          "destinationUrl": "https://nss-day-cohort-14.github.io/",
+          "scanUrl": "https://nss-day-cohort-14.github.io/",
+          "desc": "Check back on November 4th! Remember to keep the My Demo Day application open during demo day to view more information about students, and favorite them.",
+          "faviconUrl": "https://raw.githubusercontent.com/nss-day-cohort-14/nss-day-cohort-14.github.io/master/img/logo.png"
+        },
+        {
+          "title": "Class Website",
+          "destinationUrl": "https://nss-day-cohort-14.github.io/",
+          "scanUrl": "https://nss-day-cohort-14.github.io/",
+          "desc": "View more information about the students of NSS Cohort 14.",
+          "faviconUrl": "https://raw.githubusercontent.com/nss-day-cohort-14/nss-day-cohort-14.github.io/master/img/logo.png"
+        }
+      ]
     });
   },
 
@@ -263,6 +280,8 @@ const Home = React.createClass({
 
   render() {
 
+    let numberOfDemos = this.state.demos.length;
+
     return (
         <ParallaxView
           style={styles.container}
@@ -278,6 +297,26 @@ const Home = React.createClass({
             <Text style={styles.mainHeader}>Demos Near Me</Text>
             <Text style={styles.subHeader}>Pull to refresh list</Text>
             {
+
+              numberOfDemos === 0 ? this.state.noDemos.map((demo, index) => {
+                  const favicon = demo.faviconUrl;
+                  return (
+                    <View key={index}>
+                      <Card style={styles.card}>
+                        <CardItem onPress={() => this.goToHomepage(demo)}>
+                          <Thumbnail source={{uri: favicon}} />
+                          <Text>{demo.title}</Text>
+                        </CardItem>
+                        <CardItem cardBody button onPress={() => this.goToHomepage(demo)}>
+                          <Text>{demo.desc}</Text>
+                        </CardItem>
+                      </Card>
+                    </View>
+                  );
+              })
+
+              :
+
               this.state.demos.map((demo, index) => {
                 // if (demo.rssi > -70) {
                   const demoId = this.getDemoId(demo);
@@ -286,9 +325,9 @@ const Home = React.createClass({
                   return (
                     <View key={index}>
                       <Card style={styles.card}>
-                        <CardItem>
+                        <CardItem  onPress={() => this.goToHomepage(demo)}>
                           <Thumbnail source={{uri: favicon}} />
-                          <Text>{demo.title}</Text>
+                          <Text >{demo.title}</Text>
                           <CheckBox
                             size={30}
                             checked={isFavorited}
