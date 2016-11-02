@@ -11,7 +11,7 @@ My Demo Day is an iOS application which aims to help facilitate communication an
 Students will have access to a [web client](https://github.com/timcreasy/DemoDayDashboard), with a unique account tied to their beacon.  Students will be shown a card for each employer who favorited them and will have quick links to email that employer, or search for them on LinkedIn to connect with them.  Notes can be added to help facilitate or document current or future conversations.
 
 ### Command Line
-![](http://i.imgur.com/0vGK1Di.png)
+![](http://i.imgur.com/nM28hyk.gif =400x326)
 
 My Demo Day was created with reusability in mind.  Along side the mobile and web applications, a [command line application](https://github.com/timcreasy/DemoDayMailer) helps facilitate the bulk emailing of unique registration links, because each student is tied to a unique beacon.  This command line application takes a JSON file as input, listing out a student's full name, email and beacon identifier.  The application also takes a text file template to be used as the body of each individual email.  After these files are completed, the command line prompt can be followed to enter a senders email information to be used to quickly send off unique bulk messages.
 
