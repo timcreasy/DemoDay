@@ -18,7 +18,7 @@ My Demo Day was created with reusability in mind.  Along side the mobile and web
 
 ### Technologies Used
 
-Nashville Software School was a continual blessing for me education for 6 months, day in, day out.  However, My Demo Day was created and built with several technologies and concepts not taught at Nashville Software School.  Namely, the [BKON SDK](https://bkon.com/), used in this project was written using Objective-C.  The mobile application for My Demo Day was written using React Native, which utilizes JavaScript.  A personal triumph included learning enough Objective-C, and gaining enough understanding of React Native, to bridge over the BKON SDK to be used in JavaScript.  Some concepts learned or used along the way include:
+Nashville Software School was a continual blessing for me education for 6 months, day in, day out.  Alongside the many things I learned in class, My Demo Day was created and built with several technologies and concepts not taught at Nashville Software School.  Namely, the [BKON SDK](https://bkon.com/), used in this project was written using Objective-C.  The mobile application for My Demo Day was written using React Native, which utilizes JavaScript.  A personal triumph included learning enough Objective-C, and gaining enough understanding of React Native, to bridge over the BKON SDK to be used in JavaScript.  Some concepts learned or used along the way include:
 - JavaScript & Node.js
 - React
 - React Native
